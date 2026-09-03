@@ -1,73 +1,267 @@
-# Car Renting Company – Dynamics 365 Solution
+# SEVENT – Power Platform Car Rental Ecosystem
 
-This repository contains a custom Dynamics 365 implementation for a car rental company (Sevent). The solution covers CRM configuration, business logic plugins, client-side scripts, and practical tasks related to car reservations, rentals, handovers, and returns.
+SEVENT is an evolving portfolio project built with Microsoft Dynamics 365 and Power Platform to model an end-to-end car rental process.
 
-## Repository Structure
+The project originally started as a Dynamics 365 development exercise using C# plug-ins and JavaScript. It has since evolved into a broader Power Platform solution that includes Dataverse, Model-driven Apps, Power Automate, Power Pages, AI-assisted document processing, and Application Lifecycle Management with Azure DevOps.
 
-```
-/practical-tasks     # Practical assignments, sample data generators, and related scripts
-/scripts             # JavaScript client-side scripts for Dynamics 365 forms
-/solutions           # Solution files for importing into Dynamics 365 (customizations, entities, dashboards)
-/src                 # Source code: plugins and backend logic (C#)
-```
-
-## Contents
-
-### 1. Plugins (C#)
-
-The `/src` folder contains C# plugins implementing business logic for car rental operations:
-
-* Status transition validation
-* Price calculation
-* Field validation and required fields
-* Car availability filter (no more than 10 active rents per customer)
-* Pickup/Return report automation and damage handling
-
-### 2. Client-Side Scripts
-
-The `/scripts` folder includes JavaScript files that control Dynamics 365 form behavior:
-
-* Filtering cars by car class
-* Automatic price and days calculation
-* Date and field validation
-* Status-dependent required fields and notifications
-* Quick creation of pickup/return reports
-
-### 3. Solutions
-
-The `/solutions` folder contains solution files for importing customizations, entities, views, forms, and dashboards into Dynamics 365.
-
-### 4. Practical Tasks
-
-The `/practical-tasks` folder provides additional practical assignments, such as sample unit tests, or utilities used during development and testing.
-
-### 5. Documentation
-
-Business requirements and project details can be found in the provided PDF files (e.g., `Car_Renting_Company_Part1.pdf`, `3 Block.pdf`), describing:
-
-* The data model and required entities (Car Class, Car, Rent, Car Transfer Report, Customer)
-* Key user stories (car rent creation, handover, return)
+The goal of the project is to build practical experience with both functional solution design and technical development using realistic business scenarios.
 
 ---
 
-## How to Use
+## Technology Stack
 
-1. **Import the Solution:**
-   Import files from the `/solutions` folder into your Dynamics 365 environment.
-
-2. **Deploy Plugins:**
-   Build and register plugins from `/src` using Plugin Registration Tool.
-
-3. **Add Web Resources:**
-   Upload scripts from `/scripts` and add them to the relevant entity forms.
-
-4. **Try Practical Assignments:**
-   Explore `/practical-tasks` for sample data generators and development/test utilities.
+- Microsoft Dataverse
+- Model-driven Power Apps
+- Power Automate
+- Power Pages
+- Microsoft Copilot Studio
+- Azure AI Document Intelligence
+- C# Dataverse plug-ins
+- JavaScript web resources
+- Microsoft Teams integration
+- Azure DevOps Boards
+- Azure Repos / Git
+- Power Platform CLI (PAC CLI)
 
 ---
 
-## Author
+## Project Status
 
-Liubov Opryshchenko
-Open to work as Junior Dynamics 365 Developer
+SEVENT is developed iteratively and tested as the solution evolves.
 
+### Implemented and Demonstrated
+
+- Dataverse data model and relationships
+- Model-driven rental management application
+- JavaScript pricing and form validation
+- C# server-side business validation
+- Rental status lifecycle
+- Payment tracking and validation
+- Power Automate notifications
+- Microsoft Teams integration
+- Managed DEV-to-TEST solution deployment
+- Azure DevOps Boards
+- Azure Repos source control using PAC CLI
+
+### In Progress
+
+- Rental Operations Agent with Copilot Studio
+- AI-assisted driver licence validation
+- Additional Power Automate flows
+- Business Process Flow and lifecycle refinements
+- Power Pages refinements
+- DEV-to-TEST deployment pipeline
+- Mobile Pickup & Return experience
+
+---
+
+## Solution Overview
+
+SEVENT is designed to support the main stages of a car rental lifecycle:
+
+**Reservation → Validation → Confirmation → Pickup → Renting → Return → Payment**
+
+The solution covers customer management, vehicle availability, pricing, rental validation, approvals, payments, pickup and return operations, and customer self-service.
+
+Some capabilities are complete, while others are actively being developed and tested.
+
+---
+
+## Dataverse Data Model
+
+Main tables include:
+
+- Contact
+- Rent
+- Car
+- Car Class
+- Insurance Option
+- Payment
+- Car Transfer Report / Vehicle Inspection
+- Branch
+
+Dataverse relationships connect customer, vehicle, reservation, payment, and rental-operation information.
+
+---
+
+## Model-driven Application
+
+The internal SEVENT application supports rental employees and managers.
+
+Key capabilities include:
+
+- Create and manage reservations
+- Select vehicle class and vehicle
+- Calculate rental duration and estimated price
+- Manage pickup and return locations
+- Track rental lifecycle using Status Reason
+- Validate required rental information
+- Create pickup and return reports
+- Track payments
+- Support manager approval scenarios
+
+### Rental Management
+
+![SEVENT Rental Form](docs/screenshots/rent-form.png)
+
+---
+
+## JavaScript
+
+JavaScript is used for client-side form behaviour, calculations, and immediate user feedback.
+
+Examples include:
+
+- Filtering vehicles by selected Car Class
+- Reservation date validation
+- Rental-day calculation
+- Price calculation
+- Conditional field behaviour
+- Form notifications and validation
+
+JavaScript examples are available in the [`scripts`](./scripts) folder.
+
+---
+
+## C# Plug-ins
+
+The project includes Dataverse plug-ins for server-side business validation.
+
+Examples include:
+
+- Status transition validation
+- Required-field validation
+- Payment validation before rental lifecycle transitions
+- Vehicle and rental business rules
+- Pickup and return validation
+
+The plug-in source code is available in the [`src`](./src) folder.
+
+### Server-side Business Validation
+
+For example, the rental cannot move to the **Renting** status when required payment conditions are not satisfied.
+
+![Payment Validation](docs/screenshots/payment-validation.png)
+
+---
+
+## Rental Lifecycle
+
+Status Reason transitions are used to control valid rental lifecycle changes.
+
+Example lifecycle:
+
+**Created → Ready for Confirmation → Confirmed → Renting → Returned**
+
+Cancellation and no-show scenarios are also supported.
+
+![Rental Status Transitions](docs/screenshots/status-transitions.png)
+
+---
+
+## Power Automate
+
+Power Automate is used for business-process automation and integrations.
+
+Current scenarios include:
+
+- Reservation validation
+- Rental notifications
+- Microsoft Teams notifications
+- Manager approval workflows
+- Customer and rental data processing
+- Rental summary communication
+- Document-processing scenarios
+
+Some flows are still being refined as the solution evolves.
+
+---
+
+## Power Pages
+
+A Power Pages portal provides a customer-facing layer for reservation-related scenarios.
+
+The portal is connected to Dataverse and is being developed to support customer self-service using Power Pages security, web roles, and table permissions.
+
+This part of the project is currently being refined.
+
+---
+
+## AI-assisted Driver Licence Validation
+
+SEVENT includes an AI-assisted driver licence validation scenario.
+
+The current design uses:
+
+- Azure AI Document Intelligence
+- Power Automate
+- Dataverse
+- Driver licence data extraction
+- Licence expiry validation
+- Age validation
+- Manager approval when required
+- Human review for uncertain results
+
+This feature is currently under development and testing.
+
+---
+
+## Rental Operations Agent
+
+A Rental Operations Agent is being developed with Microsoft Copilot Studio.
+
+The planned agent will help with scenarios such as:
+
+- Reservation validation
+- Rental status checks
+- Missing-information detection
+- Business-rule guidance
+- Manager escalation
+- Rental operation support
+
+**Status: In progress**
+
+---
+
+## Azure DevOps Project Management
+
+SEVENT development is organized in Azure DevOps.
+
+The project backlog includes several functional and technical workstreams:
+
+- Application Lifecycle Management
+- Rental Operations Agent
+- Driver Licence Validation
+- Mobile Pickup & Return App
+- Payments & Rental Lifecycle
+
+![SEVENT Azure DevOps Features](docs/screenshots/azure-devops-features.png)
+
+Azure Boards is also used to break work down into:
+
+**Epic → Feature → User Story → Task / Bug**
+
+### ALM Work Tracking
+
+Solution preparation, managed deployment, source control, and future pipeline automation are tracked as individual work items.
+
+![Azure DevOps ALM Board](docs/screenshots/azure-devops-alm-board.png)
+
+---
+
+## Application Lifecycle Management
+
+SEVENT now uses separate development and testing environments.
+
+Current workflow:
+
+```text
+DEV
+ ↓
+Unmanaged development solution
+ ↓
+Managed solution export
+ ↓
+SEVENT TEST
+ ↓
+Functional validation
