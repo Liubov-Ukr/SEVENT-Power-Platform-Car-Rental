@@ -161,20 +161,53 @@ Cancellation and no-show scenarios are also supported.
 
 ## Power Automate
 
-Power Automate is used for business-process automation and integrations.
+Power Automate is used throughout SEVENT for business logic, integrations, scheduled processing, document generation, notifications, approvals, and AI-assisted validation.
 
-Current scenarios include:
+Automation scenarios include:
 
-- Reservation validation
-- Rental notifications
-- Microsoft Teams notifications
+- Reservation validation and pricing calculations
+- Driver age and licence validation
+- Rental fee calculations
+- Microsoft Teams and email notifications
 - Manager approval workflows
-- Customer and rental data processing
+- Scheduled upcoming-return processing
+- Word template document generation
+- SharePoint document storage
 - Rental summary communication
-- Document-processing scenarios
+- AI-assisted driver licence processing
+- Error handling using Try/Catch-style scopes
 
-Some flows are still being refined as the solution evolves.
+### Rental Pricing and Validation
 
+One of the main automation processes combines Dataverse data from the customer, vehicle, car class, and insurance records to calculate rental-related values and validate reservation conditions.
+
+The flow handles values such as driver age, licence validity, rental days, location fees, insurance pricing, young-driver fees, reserved price, and estimated rental total.
+
+![Reservation Calculation Flow](docs/screenshots/reservation-calculation-flow.png)
+
+### AI-assisted Driver Licence Validation
+
+The driver licence validation workflow combines Dataverse, document processing, Azure AI Document Intelligence, AI Builder, and business validation logic.
+
+The feature is still being refined and tested as part of the SEVENT roadmap.
+
+![AI Licence Validation Flow](docs/screenshots/ai-licence-validation-flow.png)
+
+### Scheduled Rental Operations
+
+A scheduled Power Automate flow checks upcoming vehicle returns, retrieves relevant Dataverse records, prepares the information, and sends notifications.
+
+This automation has also been tested through recurring scheduled executions.
+
+![Daily Upcoming Returns](docs/screenshots/daily-upcoming-returns.png)
+
+### Error Handling
+
+Testing has also helped improve flow reliability.
+
+For example, a document-processing flow originally failed when an expected file or image was unavailable. The flow was redesigned to use Try/Catch-style scopes so expected failures can be handled more safely instead of relying only on the happy path.
+
+![Power Automate Error Handling](docs/screenshots/flow-error-handling.png)
 ---
 
 ## Power Pages
